@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "/Areas/Identity/Pages/Shared/_Layout.cshtml";
+}
+<h1>Manage your account</h1>
+
+<div>
+    <h4>Change your account settings</h4>
+
+    <hr />
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <partial name="_ManageNav" />
+
+        </div>
+
+        <div class="col-md-9" id="account-body">
+
+            @RenderBody()
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function accountBodyResize()
+    {
+        const size = window.innerHeight - window.innerWidth
+
+        document.getElementById('account-body').style.marginTop = size < 0 ? '' : '.75rem'
+    }
+    window.addEventListener('resize', accountBodyResize)
+
+    accountBodyResize()
+
+</script>
+
+@section Scripts
+{
+    @RenderSection("Scripts", required: false)
+}

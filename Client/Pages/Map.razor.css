@@ -1,0 +1,17 @@
+﻿.lookup-container
+{
+    width: 100%;
+    font-weight: bolder;
+    color: navy;
+    position: fixed
+}
+
+.lookup-container-index
+{
+    z-index: 5
+}
+
+#map
+{
+    height: 100vh
+}

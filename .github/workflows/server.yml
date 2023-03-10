@@ -1,0 +1,54 @@
+name: .NET SERVER
+
+on:
+  push:
+    branches: [ 'publish', 'NET7' ]
+    
+    paths:
+      - 'Server/**'
+    
+jobs:
+  build:
+
+    env:
+      working-directory: ./Server
+    
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        dotnet-version: ['6.0.x', '7.0.x']
+        
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET SDK ${{ matrix.dotnet-version }}    
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+        
+    - name: Display .NET version
+      run: dotnet --version
+      working-directory: ${{ env.working-directory }}
+      
+    - name: Install dependencies
+      run: dotnet restore Algorithmic.Server.csproj
+      working-directory: ${{ env.working-directory }}
+
+    - name: Build
+      run: dotnet build
+      working-directory: ${{ env.working-directory }}
+
+    - name: Test
+      run: dotnet test --logger trx --results-directory "server-results-${{ matrix.os }}-${{ matrix.dotnet-version }}"
+      working-directory: ${{ env.working-directory }}
+
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v3      
+      with:
+        name: dotnet-results-${{ matrix.os }}-${{ matrix.dotnet-version }}
+        path: ./server-results-${{ matrix.os }}-${{ matrix.dotnet-version }}
+        
+      if: ${{ always() }}

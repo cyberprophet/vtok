@@ -1,0 +1,12 @@
+﻿@inherits MapBase
+@page "/map"
+
+<center class="lookup-container @(IsLoading ? "lookup-container-index" : string.Empty)">
+    <div class="display">
+        <div class="loader" />
+    </div>
+</center>
+
+<div id="map">
+
+</div>

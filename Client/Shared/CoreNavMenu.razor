@@ -1,0 +1,66 @@
+﻿@inherits CoreNavMenuBase
+
+<div @onclick="ToggleNavMenu" class="toggle-nav-menu">
+
+    <nav class="flex-row nav">
+
+        <div class="nav-item">
+            <NavLink class="nav-link"
+                     href="/"
+                     Match="NavLinkMatch.All">
+
+                @nameof(Resources.INTRO)
+
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link"
+                     href="map"
+                     Match="NavLinkMatch.All">
+
+                @nameof(Map).ToUpperInvariant()
+
+            </NavLink>
+        </div>
+
+        <AuthorizeView>
+
+            <Authorized>
+
+                @if (Properties.Resources.SWAGGER.Equals(context.User.Identity?.Name))
+                {
+                    <div class="nav-item">
+                        <NavLink class="nav-link" href="guidance-api" Match="NavLinkMatch.All">
+
+                            @Resources.INTRO
+
+                        </NavLink>
+                    </div>
+                }
+                <div class="nav-item">
+                    <NavLink class="nav-link"
+                             href="account/profile"
+                             Match="NavLinkMatch.All">
+
+                        @context.User.Identity?.Name?.ToUpperInvariant().Split('@')[0]
+
+                    </NavLink>
+                </div>
+            </Authorized>
+
+            <NotAuthorized>
+                <div class="nav-item">
+                    <NavLink class="nav-link"
+                             href="account/login?returnUrl="
+                             Match="NavLinkMatch.All">
+
+                        @Resources.AUTHENTICATION
+
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+
+        </AuthorizeView>
+    </nav>
+</div>

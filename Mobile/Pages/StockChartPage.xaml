@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+             xmlns:viewmodel="clr-namespace:ShareInvest.ViewModels"
+             xmlns:formatter="clr-namespace:ShareInvest.Services.Formatters"
+             x:DataType="viewmodel:StockChartViewModel"
+             x:Class="ShareInvest.Pages.StockChartPage"
+             ios:Page.UseSafeArea="True"
+             Shell.NavBarIsVisible="True"
+             Shell.BackgroundColor="{AppThemeBinding Dark=#191B22,
+                                                     Light=#800000}"
+             Title="{Binding Name}">
+
+    <dxc:ChartView Theme="{Binding ChartTheme}"
+                   x:Name="cv"
+                   Loaded="OnLoaded"
+                   AxisXNavigationMode="ScrollingAndZooming"
+                   AxisMaxZoomPercent="1024">
+
+        <dxc:ChartView.Hint>
+
+            <dxc:Hint>
+
+                <dxc:Hint.Behavior>
+
+                    <dxc:CrosshairHintBehavior GroupHeaderTextPattern="{}{A$yyyy-MM-dd}"/>
+
+                </dxc:Hint.Behavior>
+
+            </dxc:Hint>
+
+        </dxc:ChartView.Hint>
+
+        <dxc:ChartView.ChartStyle>
+
+            <dxc:ChartStyle BackgroundColor="{AppThemeBinding Dark=#191B22,
+                                                              Light=#FFFAFA}">
+                <dxc:ChartStyle.Padding>
+
+                    <dxc:Padding Left="7"
+                                 Right="7"
+                                 Bottom="7"
+                                 Top="0">
+                    </dxc:Padding>
+
+                </dxc:ChartStyle.Padding>
+
+            </dxc:ChartStyle>
+
+        </dxc:ChartView.ChartStyle>
+
+        <dxc:ChartView.AxisY>
+
+            <dxc:NumericAxisY AlwaysShowZeroLevel="False"
+                              AutoRangeMode="VisibleValues">
+
+                <dxc:NumericAxisY.DisplayPosition>
+
+                    <dxc:AxisDisplayPositionFar/>
+
+                </dxc:NumericAxisY.DisplayPosition>
+
+                <dxc:NumericAxisY.Layout>
+
+                    <dxc:AxisLayout Anchor1="0.275"
+                                    Anchor2="1">
+                    </dxc:AxisLayout>
+
+                </dxc:NumericAxisY.Layout>
+
+                <dxc:NumericAxisY.LabelTextFormatter>
+
+                    <formatter:AxisLabelTextFormatter/>
+
+                </dxc:NumericAxisY.LabelTextFormatter>
+
+                <dxc:NumericAxisY.Label>
+
+                    <dxc:AxisLabel Position="Inside"/>
+
+                </dxc:NumericAxisY.Label>
+
+                <dxc:NumericAxisY.Style>
+
+                    <dxc:AxisStyle LineVisible="False"
+                                   MajorGridlinesVisible="True"
+                                   MajorGridlinesColor="{AppThemeBinding Dark=#696969,
+                                                                         Light=#FFFAFA}">
+                    </dxc:AxisStyle>
+
+                </dxc:NumericAxisY.Style>
+
+            </dxc:NumericAxisY>
+
+        </dxc:ChartView.AxisY>
+
+        <dxc:ChartView.AxisX>
+
+            <dxc:DateTimeAxisX x:Name="axisX"
+                               EmptyRangesVisible="False"
+                               MeasureUnit="Day">
+
+                <dxc:DateTimeAxisX.Style>
+
+                    <dxc:AxisStyle MajorGridlinesVisible="True"
+                                   MajorGridlinesColor="{AppThemeBinding Dark=#696969,
+                                                                         Light=#FFFAFA}">
+                    </dxc:AxisStyle>
+
+                </dxc:DateTimeAxisX.Style>
+
+                <dxc:DateTimeAxisX.Label>
+
+                    <dxc:AxisLabel>
+
+                        <dxc:AxisLabel.Style>
+
+                            <dxc:AxisLabelStyle>
+
+                                <dxc:AxisLabelStyle.TextStyle>
+
+                                    <dxc:TextStyle Color="{AppThemeBinding Dark=#FFFAFA,
+                                                                           Light=#696969}">
+                                    </dxc:TextStyle>
+
+                                </dxc:AxisLabelStyle.TextStyle>
+
+                            </dxc:AxisLabelStyle>
+
+                        </dxc:AxisLabel.Style>
+
+                    </dxc:AxisLabel>
+
+                </dxc:DateTimeAxisX.Label>
+
+                <dxc:DateTimeAxisX.Range>
+
+                    <dxc:DateTimeRange SideMargin="3"/>
+
+                </dxc:DateTimeAxisX.Range>
+
+                <dxc:DateTimeAxisX.LabelTextFormatter>
+
+                    <formatter:AxisLabelTextFormatter/>
+
+                </dxc:DateTimeAxisX.LabelTextFormatter>
+
+            </dxc:DateTimeAxisX>
+
+        </dxc:ChartView.AxisX>
+
+        <dxc:ChartView.Series>
+
+            <dxc:CandleStickSeries DisplayName="Chart">
+
+                <dxc:CandleStickSeries.Data>
+
+                    <dxc:SeriesDataAdapter DataSource="{Binding ChartCollection}"
+                                           ArgumentDataMember="Lookup">
+
+                        <dxc:ValueDataMember Type="Close"
+                                             Member="Close">
+                        </dxc:ValueDataMember>
+
+                        <dxc:ValueDataMember Type="Open"
+                                             Member="Open">
+                        </dxc:ValueDataMember>
+
+                        <dxc:ValueDataMember Type="Low"
+                                             Member="Low">
+                        </dxc:ValueDataMember>
+
+                        <dxc:ValueDataMember Type="High"
+                                             Member="High">
+                        </dxc:ValueDataMember>
+
+                    </dxc:SeriesDataAdapter>
+
+                </dxc:CandleStickSeries.Data>
+
+                <dxc:CandleStickSeries.Style>
+
+                    <dxc:CandleStickSeriesStyle RisingStroke="#F00"
+                                                RisingFill="#F00"
+                                                FallingFill="Transparent"
+                                                FallingStroke="{AppThemeBinding Dark=#00BFFF,
+                                                                                Light=#00F}">
+                    </dxc:CandleStickSeriesStyle>
+
+                </dxc:CandleStickSeries.Style>
+
+            </dxc:CandleStickSeries>
+
+            <dxc:BarSeries DisplayName="Volume">
+
+                <dxc:BarSeries.Data>
+
+                    <dxc:SeriesDataAdapter DataSource="{Binding ChartCollection}"
+                                           ArgumentDataMember="Lookup">
+
+                        <dxc:ValueDataMember Type="Value"
+                                             Member="Volume">
+                        </dxc:ValueDataMember>
+
+                    </dxc:SeriesDataAdapter>
+
+                </dxc:BarSeries.Data>
+
+                <dxc:BarSeries.AxisY>
+
+                    <dxc:NumericAxisY AutoRangeMode="VisibleValues">
+
+                        <dxc:NumericAxisY.LabelValueNotation>
+
+                            <dxc:AxisLabelEngineeringNotation/>
+
+                        </dxc:NumericAxisY.LabelValueNotation>
+
+                        <dxc:NumericAxisY.DisplayPosition>
+
+                            <dxc:AxisDisplayPositionFar/>
+
+                        </dxc:NumericAxisY.DisplayPosition>
+
+                        <dxc:NumericAxisY.Layout>
+
+                            <dxc:AxisLayout Anchor1="0"
+                                            Anchor2="0.275">
+                            </dxc:AxisLayout>
+
+                        </dxc:NumericAxisY.Layout>
+
+                        <dxc:NumericAxisY.Label>
+
+                            <dxc:AxisLabel Position="Inside">
+
+                                <dxc:AxisLabel.Style>
+
+                                    <dxc:AxisLabelStyle>
+
+                                        <dxc:AxisLabelStyle.TextStyle>
+
+                                            <dxc:TextStyle Color="{AppThemeBinding Dark=#FFFAFA,
+                                                                                   Light=#696969}">
+                                            </dxc:TextStyle>
+
+                                        </dxc:AxisLabelStyle.TextStyle>
+
+                                    </dxc:AxisLabelStyle>
+
+                                </dxc:AxisLabel.Style>
+
+                            </dxc:AxisLabel>
+
+                        </dxc:NumericAxisY.Label>
+
+                        <dxc:NumericAxisY.Style>
+
+                            <dxc:AxisStyle LineVisible="False"
+                                           MajorGridlinesVisible="True"
+                                           MajorGridlinesColor="{AppThemeBinding Dark=#696969,
+                                                                                 Light=#FFFAFA}">
+                            </dxc:AxisStyle>
+
+                        </dxc:NumericAxisY.Style>
+
+                    </dxc:NumericAxisY>
+
+                </dxc:BarSeries.AxisY>
+
+                <dxc:BarSeries.Style>
+
+                    <dxc:BarSeriesStyle Fill="{AppThemeBinding Dark=#696969,
+                                                               Light=#D3D3D3}"
+                                        Stroke="{AppThemeBinding Dark=#696969,
+                                                                 Light=#D3D3D3}">
+                    </dxc:BarSeriesStyle>
+
+                </dxc:BarSeries.Style>
+
+            </dxc:BarSeries>
+
+        </dxc:ChartView.Series>
+
+    </dxc:ChartView>
+
+</ContentPage>

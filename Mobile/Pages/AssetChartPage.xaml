@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+             xmlns:viewmodel="clr-namespace:ShareInvest.ViewModels"
+             xmlns:formatter="clr-namespace:ShareInvest.Services.Formatters"
+             x:DataType="viewmodel:AssetChartViewModel"
+             x:Class="ShareInvest.Pages.AssetChartPage"
+             ios:Page.UseSafeArea="True"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Dark=#191B22,
+                                               Light=#FFFAFA}"
+             Title="{Binding Account}">
+
+    <Grid ColumnDefinitions="*,*"
+          RowDefinitions="*,Auto">
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2">
+        </ActivityIndicator>
+
+        <dxc:ChartView Grid.ColumnSpan="2"
+                       x:Name="statusChart"
+                       AxisXNavigationMode="ScrollingAndZooming"
+                       AxisMaxZoomPercent="725">
+
+            <dxc:ChartView.Hint>
+
+                <dxc:Hint>
+
+                    <dxc:Hint.Behavior>
+
+                        <dxc:CrosshairHintBehavior GroupHeaderTextPattern="{}{A$yyyy-MM-dd}"/>
+
+                    </dxc:Hint.Behavior>
+
+                </dxc:Hint>
+
+            </dxc:ChartView.Hint>
+
+            <dxc:ChartView.ChartStyle>
+
+                <dxc:ChartStyle BackgroundColor="{AppThemeBinding Dark=#191B22,
+                                                                  Light=#FFFAFA}">
+                </dxc:ChartStyle>
+
+            </dxc:ChartView.ChartStyle>
+
+            <dxc:ChartView.AxisY>
+
+                <dxc:NumericAxisY AlwaysShowZeroLevel="False"
+                                  AutoRangeMode="VisibleValues">
+
+                    <dxc:NumericAxisY.LabelTextFormatter>
+
+                        <formatter:AxisLabelTextFormatter/>
+
+                    </dxc:NumericAxisY.LabelTextFormatter>
+
+                    <dxc:NumericAxisY.DisplayPosition>
+
+                        <dxc:AxisDisplayPositionFar/>
+
+                    </dxc:NumericAxisY.DisplayPosition>
+
+                    <dxc:NumericAxisY.Layout>
+
+                        <dxc:AxisLayout Anchor1="0.0175"
+                                        Anchor2="0.975">
+                        </dxc:AxisLayout>
+
+                    </dxc:NumericAxisY.Layout>
+
+                    <dxc:NumericAxisY.Label>
+
+                        <dxc:AxisLabel Position="Inside"
+                                       Visible="True">
+
+                            <dxc:AxisLabel.Style>
+
+                                <dxc:AxisLabelStyle>
+
+                                    <dxc:AxisLabelStyle.TextStyle>
+
+                                        <dxc:TextStyle Color="{AppThemeBinding Dark=#FFFAFA,
+                                                                               Light=#696969}"/>
+
+                                    </dxc:AxisLabelStyle.TextStyle>
+
+                                </dxc:AxisLabelStyle>
+
+                            </dxc:AxisLabel.Style>
+
+                        </dxc:AxisLabel>
+
+                    </dxc:NumericAxisY.Label>
+
+                    <dxc:NumericAxisY.Style>
+
+                        <dxc:AxisStyle MajorGridlinesVisible="True"
+                                       MajorGridlinesColor="{AppThemeBinding Dark=#696969,
+                                                                             Light=#FFFAFA}">
+                        </dxc:AxisStyle>
+
+                    </dxc:NumericAxisY.Style>
+
+                </dxc:NumericAxisY>
+
+            </dxc:ChartView.AxisY>
+
+            <dxc:ChartView.AxisX>
+
+                <dxc:DateTimeAxisX x:Name="axisX"                                   
+                                   EmptyRangesVisible="False"
+                                   MeasureUnit="Day"
+                                   GridAlignment="Day">
+
+                    <dxc:DateTimeAxisX.LabelTextFormatter>
+
+                        <formatter:AxisLabelTextFormatter/>
+
+                    </dxc:DateTimeAxisX.LabelTextFormatter>
+
+                    <dxc:DateTimeAxisX.Style>
+
+                        <dxc:AxisStyle MajorGridlinesVisible="True"
+                                       MajorGridlinesColor="{AppThemeBinding Dark=#696969,
+                                                                             Light=#FFFAFA}">
+                        </dxc:AxisStyle>
+
+                    </dxc:DateTimeAxisX.Style>
+
+                    <dxc:DateTimeAxisX.Label>
+
+                        <dxc:AxisLabel>
+
+                            <dxc:AxisLabel.Style>
+
+                                <dxc:AxisLabelStyle>
+
+                                    <dxc:AxisLabelStyle.TextStyle>
+
+                                        <dxc:TextStyle Color="{AppThemeBinding Dark=#FFFAFA,
+                                                                               Light=#696969}">
+                                        </dxc:TextStyle>
+
+                                    </dxc:AxisLabelStyle.TextStyle>
+
+                                </dxc:AxisLabelStyle>
+
+                            </dxc:AxisLabel.Style>
+
+                        </dxc:AxisLabel>
+
+                    </dxc:DateTimeAxisX.Label>
+
+                    <dxc:DateTimeAxisX.Range>
+
+                        <dxc:DateTimeRange SideMargin="3"/>
+
+                    </dxc:DateTimeAxisX.Range>
+
+                </dxc:DateTimeAxisX>
+
+            </dxc:ChartView.AxisX>
+
+        </dxc:ChartView>
+
+    </Grid>
+
+</ContentPage>
